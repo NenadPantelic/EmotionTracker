@@ -49,3 +49,16 @@
 img {
   /* border-radius: 7%; */
 }
+
+.dashboard {
+
+}
+
+.search {
+  height: 10vh;
+}
+
+.selfie {
+  height: 87vh;
+  width: auto;
+}
