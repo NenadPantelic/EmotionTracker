@@ -2,16 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   background-color: #282c34;
@@ -28,11 +18,34 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.welcome {
+  height: 90vh;
+  width: 30%;
+  margin: auto;
+  margin-top: 2.5%;
+  box-shadow: 0 6px 10px -6px #777;
+}
+
+.welcomeText, .enterText {
+  font-family: 'Sacramento', cursive;
+  font-size: 3rem;
+  color: #146F83;
+}
+
+.enterText:hover {
+  cursor: pointer;
+}
+
+
+.illustration {
+  border-radius: 10px;
+}
+
+.illustration:hover {
+  margin: 2px;
+  cursor: pointer;
+}
+
+img {
+  /* border-radius: 7%; */
 }
