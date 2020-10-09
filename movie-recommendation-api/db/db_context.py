@@ -1,5 +1,5 @@
 from sqlite3 import connect, Error
-
+from exceptions.db_exception import DbException
 
 class DbContext:
 
@@ -27,22 +27,29 @@ class DbContext:
     def isConnectionOpened(self):
         return self.conn is not None
 
-    def execute_sql_command(self, command, require_commit=True):
+    def execute_sql_command(self, command, require_commit=True, args=None):
         """
         Executes custom SQL command.
         :param conn: connection object
         :param command: SQL command that should be executed
+        :param args: arguments of the provided SQL command
         :param require_commit: does the command require commit
         :return: cursor object
         """
         cursor = self.conn.cursor()
         try:
-            cursor.execute(command)
+            if args:
+                cursor.execute(command, args)
+            else:
+                cursor.execute(command)
             if require_commit:
                 self.conn.commit()
-        except Error:
-            print(
-                "Some error occurred during db commit. Check your command parameters and db settings.")  # TODO: use logger
+        except Error as e:
+            # TODO: use logger
+            print(f"Original error message: {e}")
+            if require_commit:
+                self.conn.rollback()
+            raise DbException("Some error occurred during db commit. Check your command parameters and db settings.")
         return cursor
 
 
