@@ -14,3 +14,4 @@ class MovieGenreRepository(IRepository):
         command = ''' INSERT INTO movie_genre(movie_id, genre_id) VALUES(?,?) '''
         new_id = super().add(command, movie_genre)
         return new_id
+

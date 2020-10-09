@@ -13,3 +13,6 @@ class GenreRepository(IRepository):
                 """
         command = ''' INSERT INTO genre(genre_id,genre_name) VALUES(?,?) '''
         return super().add(command, genre)
+
+    def findall(self):
+        return super()._findall("genre")

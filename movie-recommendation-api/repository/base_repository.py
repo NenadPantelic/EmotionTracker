@@ -15,3 +15,21 @@ class IRepository:
         except DbException as e: # log this message
             last_id = None
         return last_id
+
+    def _findall(self, entity):
+        query = ''f'SELECT * from {entity}'''
+        try:
+            cursor = self._context.execute_sql_command(query)
+            return cursor.fetchall()
+        except DbException as e:  # log this message
+            print("Some error occurred during data fetching.")
+            return None
+
+    def _find(self, query, params):
+        try:
+            cursor = self._context.execute_sql_command(query, args=params)
+            return cursor.fetchall()
+        except DbException as e: # log this message
+            print("Some error occurred during data fetching.")
+            return None
+

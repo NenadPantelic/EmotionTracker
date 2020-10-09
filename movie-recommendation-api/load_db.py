@@ -31,34 +31,29 @@ if context.isConnectionOpened:
     last_inserted_id = 0
     inserted_genres = {} # NOTE: if this script is used when there are already some genres present in the database, those
     # genres neet to be fetched from the db
-    counter = 0
     with open(CSV_DATASET_FILE_PATH, "r") as data:
         dr = csv.DictReader(data)  # comma is default delimiter
         for row in dr:
             imdb_id = row["imdb_title_id"]
-            db_values = [imdb_id]
-            db_values.extend([row[col] for col in row if col in CSV_MOVIE_COLUMNS])
-            db_values.append(None)
-            print("Data loading....")#, end=" ")
-            movie_id = movie_repo.add_movie(db_values)
-            if movie_id is None:
+            movie_attrs = [imdb_id] + [row[col] for col in row if col in CSV_MOVIE_COLUMNS] + [None]
+            print("Data loading....")
+            movie_row_id = movie_repo.add_movie(movie_attrs)
+            if movie_row_id is None:
                 print(f"Warning! Movie  with the imdb id =[{imdb_id}] was not inserted!")
             genres = row["genre"]
             for genre in genres.split(","):
+                genre = genre.strip()
                 if genre not in inserted_genres:
-                    if last_inserted_id is None:
-                        last_inserted_id = counter
-                    last_inserted_id = genre_repo.add_genre((last_inserted_id + 1, genre))
-                    genre_id = last_inserted_id
+                    genre_id = genre_repo.add_genre((last_inserted_id + 1, genre))
                     if genre_id is not None:
                         inserted_genres[genre] = genre_id
-                        counter += 1
+                        last_inserted_id = genre_id
                     else:
                         print(f"Warning! Genre  with the name=[{genre}] was not inserted!")
                 else:
                     genre_id = inserted_genres[genre]
-                if movie_id is not None and genre_id is not None:
-                    movie_genre_repo.add_movie_genre((movie_id, genre_id))
+                if movie_row_id is not None and genre_id is not None:
+                    movie_genre_repo.add_movie_genre((imdb_id, genre_id))
     print("Data successfully loaded into database.")
     context.close()
 else:
