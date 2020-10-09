@@ -1,0 +1,31 @@
+{
+  "name": "emotion-tracker-js",
+  "version": "0.0.1",
+  "description": "Library for seamless integration of emotion recognition within webapps,",
+  "main": "index.js",
+  "dependencies": {
+    "npm": "^6.14.8"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Testing\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VikVelev/EmotionTracker.git"
+  },
+  "keywords": [
+    "emotion",
+    "recognition",
+    "library",
+    "ai",
+    "face",
+    "recognition"
+  ],
+  "author": "Team 1 | Viktor Velev | Nenad Pantelic | Temitope Akinsoto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VikVelev/EmotionTracker/issues"
+  },
+  "homepage": "https://github.com/VikVelev/EmotionTracker#readme"
+}

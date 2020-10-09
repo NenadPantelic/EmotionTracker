@@ -12,4 +12,4 @@ class EmotionRecognitionService(bentoml.BentoService):
 
     @bentoml.api(input=ImageInput(), output = JsonOutput(), batch=False)
     def predict(self, image):
-        return DeepFace.analyze(np.array(image), actions = [ 'emotion' ], enforce_detection = False)
+        return DeepFace.analyze(np.array(image), actions = [ 'emotion', 'age' ], enforce_detection = False)
