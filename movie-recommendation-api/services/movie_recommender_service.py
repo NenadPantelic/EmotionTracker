@@ -41,7 +41,7 @@ class MovieRecommenderService(RecommenderService):
         if recommendation_type not in ("improve", "keepup"):
             raise BadParametersException(f"Recommendation type = {recommendation_type} is not valid.")
         if emotion not in self.emotion_improve_map and emotion not in self.emotion_keepup_map:
-            raise BadParametersException(f"Emotion  value = {emotion} is not valid.")
+            raise BadParametersException(f"Emotion value = {emotion} is not valid.")
         return self.emotion_improve_map[emotion] if recommendation_type == "improve" \
             else self.emotion_keepup_map
 
@@ -70,8 +70,8 @@ class MovieRecommenderService(RecommenderService):
         if num_of_movies <= 0:
             raise BadParametersException("Number of movies to recommend must be positive.")
         #strongest_emotion = self.find_strongest_emotion(emotions)
-        recommended_genre = self.map_emotion_to_genre(emotion, recommendation_type)
         try:
+            recommended_genre = self.map_emotion_to_genre(emotion, recommendation_type)
             movies = self.find_best_movies_by_genre(recommended_genre, num_of_movies)
             movie_details = []
             for movie in movies:
@@ -80,7 +80,7 @@ class MovieRecommenderService(RecommenderService):
                 movie_details.append(movie_dto)
             return {"movies":movie_details}
         except Exception as e:
-            return error_response(e.message)
+            return ErrorResponse(e.message).as_json()
 
 
 
