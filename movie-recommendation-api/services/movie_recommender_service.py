@@ -1,9 +1,13 @@
 from .recommender_service import RecommenderService
 from exceptions.bad_parameters_exception import  BadParametersException
+from exceptions.db_exception import DbException
+from dto.movie_response import MovieResponse
+from dto.error_response import ErrorResponse
+from utils.poster_scraper import scrape_imdb_poster
 
 class MovieRecommenderService(RecommenderService):
-    def __init__(self, movie_repo, emo_improve_map, emo_keepup_map):
-        self.movie_repo = movie_repo
+    def __init__(self, db_context, emo_improve_map, emo_keepup_map):
+        self._db_context = db_context
         # TODO: find some reasonable mapping between emotions and movie genres
         self.emotion_improve_map = { "Angry" : "Comedy",
                                     "Disguist" : "",
@@ -14,6 +18,11 @@ class MovieRecommenderService(RecommenderService):
                                     "Neutral": ""}
         self.emotion_keepup_map = {}
 
+    @property
+    def db_context(self):
+        return self._db_context
+
+    # NOTE: unused
     def find_strongest_emotion(self, emotions):
         """
         Find the strongest emotion among all listed.
@@ -36,8 +45,21 @@ class MovieRecommenderService(RecommenderService):
         return self.emotion_improve_map[emotion] if recommendation_type == "improve" \
             else self.emotion_keepup_map
 
+    # TODO: refactor note - create controller - service - dao flow
+    def find_best_movies_by_genre(self, genre, num_of_movies=5):
+        # TODO: use cache
+        query = '''SELECT movie.movie_id, title, directors, actors, duration, avg_vote, poster_url, year, 
+                   production_company, genre_name FROM (SELECT * FROM movie_genre INNER JOIN genre ON genre.genre_id= 
+                   movie_genre.genre_id WHERE genre_name =:genre_name) AS MG INNER JOIN movie ON 
+                   MG.movie_id = movie.movie_id ORDER BY avg_vote DESC LIMIT :num_of_movies'''
+        return  self.db_context.session.execute(query,
+                        {"genre_name": genre, "num_of_movies": num_of_movies}).fetchall()
 
-    def recommend(self, emotions, recommendation_type = "improve", num_of_movies=10):
+    def find_movie_url(self, movie_id):
+        return scrape_imdb_poster(movie_id)
+
+
+    def recommend(self, emotion, recommendation_type = "improve", num_of_movies=10):
         """
         Recommends best movies based on provided emotions.
         :param emotions: dictionary of emotions
@@ -47,9 +69,19 @@ class MovieRecommenderService(RecommenderService):
         """
         if num_of_movies <= 0:
             raise BadParametersException("Number of movies to recommend must be positive.")
-        strongest_emotion = self.find_strongest_emotion(emotions)
-        recommended_genre = self.map_emotion_to_genre(strongest_emotion, recommendation_type)
-        return self.movie_repo.find_best_movies_by_genre(recommended_genre, num_of_movies)
+        #strongest_emotion = self.find_strongest_emotion(emotions)
+        recommended_genre = self.map_emotion_to_genre(emotion, recommendation_type)
+        try:
+            movies = self.find_best_movies_by_genre(recommended_genre, num_of_movies)
+            movie_details = []
+            for movie in movies:
+                movie_dto = MovieResponse(*movie).as_json()
+                movie_dto["poster_url"] = self.find_movie_url(movie_dto["imdb_url"])
+                movie_details.append(movie_dto)
+            return {"movies":movie_details}
+        except Exception as e:
+            return error_response(e.message)
+
 
 
 
