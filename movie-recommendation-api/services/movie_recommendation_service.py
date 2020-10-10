@@ -37,7 +37,7 @@ class MovieRecommendationService(RecommendationService):
         if emotion not in self.emotion_improve_map and emotion not in self.emotion_keepup_map:
             raise BadParametersException(f"Emotion value [{emotion}] is not valid.")
         return self.emotion_improve_map[emotion] if recommendation_type == "improve" \
-            else self.emotion_keepup_map
+            else self.emotion_keepup_map[emotion]
 
     # TODO: refactor note - create controller - service - dao flow
     def find_best_movies_by_genre(self, genre, num_of_movies=5):
@@ -74,7 +74,8 @@ class MovieRecommendationService(RecommendationService):
                 movie_details.append(movie_dto)
             return {"movies":movie_details}
         except Exception as e:
-            return ErrorResponse(e.message).as_json()
+            # TODO: make error message more descriptive - based on exception type
+            return ErrorResponse("Internal server error.").as_json()
 
 
 
