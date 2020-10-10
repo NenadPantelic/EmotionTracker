@@ -1,5 +1,5 @@
 
-class RecommenderService:
+class RecommendationService:
     def __init__(self, movie_repo):
         pass
 

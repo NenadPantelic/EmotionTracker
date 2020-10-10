@@ -1,22 +1,16 @@
-from .recommender_service import RecommenderService
+from .recommendation_service import RecommendationService
 from exceptions.bad_parameters_exception import  BadParametersException
 from exceptions.db_exception import DbException
 from dto.movie_response import MovieResponse
 from dto.error_response import ErrorResponse
 from utils.poster_scraper import scrape_imdb_poster
-
-class MovieRecommenderService(RecommenderService):
-    def __init__(self, db_context, emo_improve_map, emo_keepup_map):
+from utils.io import load_json
+from config.config import IMPROVE_EMOTIONS_MAP_PATH, KEEPUP_EMOTIONS_MAP_PATH
+class MovieRecommendationService(RecommendationService):
+    def __init__(self, db_context):
         self._db_context = db_context
-        # TODO: find some reasonable mapping between emotions and movie genres
-        self.emotion_improve_map = { "Angry" : "Comedy",
-                                    "Disguist" : "",
-                                    "Fear" : "",
-                                    "Happy" : "",
-                                    "Sad" : "",
-                                    "Surprise" :"",
-                                    "Neutral": ""}
-        self.emotion_keepup_map = {}
+        self.emotion_improve_map = load_json(IMPROVE_EMOTIONS_MAP_PATH)
+        self.emotion_keepup_map = load_json(KEEPUP_EMOTIONS_MAP_PATH)
 
     @property
     def db_context(self):

@@ -5,7 +5,7 @@ from flask import Flask, jsonify, abort, request
 from flask_restful import Api, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 from repository.movie_repository import MovieRepository
-from services.movie_recommender_service import MovieRecommenderService
+from services.movie_recommendation_service import MovieRecommendationService
 from config.web_config import Config
 from flask_cors import cross_origin
 
@@ -16,19 +16,19 @@ Base = declarative_base()
 Base.metadata.reflect(engine)
 
 app.config.from_object("config.web_config.Config")
-db = SQLAlchemy(app)
-recommender = MovieRecommenderService(db, None, None)
+db_orm = SQLAlchemy(app)
+recommender = MovieRecommendationService(db_orm)
 
 
-class Movie(Base, db.Model):
+class Movie(Base, db_orm.Model):
     __table__ = Base.metadata.tables['movie']
 
 
-class Genre(Base, db.Model):
+class Genre(Base, db_orm.Model):
     __table__ = Base.metadata.tables['genre']
 
 
-class MovieGenre(Base, db.Model):
+class MovieGenre(Base, db_orm.Model):
     __table__ = Base.metadata.tables['movie_genre']
 
 
