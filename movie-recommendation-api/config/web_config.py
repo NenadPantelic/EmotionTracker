@@ -1,8 +1,7 @@
 class Config:
-    DEBUG = True
+    DEBUG = False
     TESTING = True
     SECRET_KEY = "%BFM(B78tKY7{ne>{.gb7=PS"
-
 
     # Server settings
     DB_SERVER = "localhost"
@@ -13,9 +12,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
     DATABASE_URI = "sqlite:///data/movie.db"
-
-
-    # CORS
 
 
 class StageConfig(Config):

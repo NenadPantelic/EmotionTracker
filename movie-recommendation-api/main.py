@@ -7,6 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from repository.movie_repository import MovieRepository
 from services.movie_recommender_service import MovieRecommenderService
 from config.web_config import Config
+from flask_cors import cross_origin
 
 app = Flask(__name__)
 api = Api(app)
@@ -31,7 +32,6 @@ class MovieGenre(Base, db.Model):
     __table__ = Base.metadata.tables['movie_genre']
 
 
-
 # move to the separate file
 emotion_post_args = reqparse.RequestParser()
 emotion_post_args.add_argument("emotion", type=str, help="Emotion which is used to recommend the movie",
@@ -41,6 +41,8 @@ emotion_post_args.add_argument("recommendation_type", type=int, help="Type of re
 
 
 @app.route('/api/v1/recommend', methods=['POST'])
+# TODO: left only for demo - configure CORS for future use
+@cross_origin()
 def recommend():
     if not request.json:
         return abort(400)
