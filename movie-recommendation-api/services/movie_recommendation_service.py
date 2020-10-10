@@ -33,9 +33,9 @@ class MovieRecommendationService(RecommendationService):
         :return: genre of movie
         """
         if recommendation_type not in ("improve", "keepup"):
-            raise BadParametersException(f"Recommendation type = {recommendation_type} is not valid.")
+            raise BadParametersException(f"Recommendation type [{recommendation_type}] is not valid.")
         if emotion not in self.emotion_improve_map and emotion not in self.emotion_keepup_map:
-            raise BadParametersException(f"Emotion value = {emotion} is not valid.")
+            raise BadParametersException(f"Emotion value [{emotion}] is not valid.")
         return self.emotion_improve_map[emotion] if recommendation_type == "improve" \
             else self.emotion_keepup_map
 

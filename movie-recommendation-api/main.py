@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine, desc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, backref
-from flask import Flask, jsonify, abort, request
+from flask import Flask, jsonify, abort, request, make_response
 from flask_restful import Api, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 from repository.movie_repository import MovieRepository
@@ -45,13 +45,14 @@ emotion_post_args.add_argument("recommendation_type", type=int, help="Type of re
 @cross_origin()
 def recommend():
     if not request.json:
-        return abort(400)
-
+        response = make_response(jsonify(message="Bad request"), 400)
+        abort(response)
     emotion = request.json.get("emotion", None)
     num_of_movies = request.json.get("num_of_movies", None)
     recommendation_type = request.json.get("recommendation_type", None)
     if emotion is None or num_of_movies is None or recommendation_type is None:
-        return abort(400)
+        response = make_response(jsonify(message="Request body is not valid."), 400)
+        abort(response)
     output = recommender.recommend(emotion, recommendation_type, num_of_movies)
     print(output)
     status_code = output.get("status_code", 200)
