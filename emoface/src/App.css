@@ -63,12 +63,51 @@ img {
   height: 10vh;
 }
 
-.selfie {
-  height: 87vh;
-  width: auto;
+.search-wrapper {
+  width: 75%;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.data {
+  width: 310px;
+  display: flex;
+  display: inline-block;
 }
 
 a {
   color: #146f83;
   text-decoration: none;
+}
+
+.link-wrapper {
+  width: 55%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+}
+.input {
+  width: 65%;
+  height: 35px;
+  border: 1px solid #146f83;
+  border-radius: 5px;
+}
+
+.submit {
+  width: 20%;
+  height: 42px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: #146f83;
+  font-size: 16px;
 }
