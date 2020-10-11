@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "movie-recommendation-api"
+version = "0.1.0"
+description = "Movie recommendation API"
+authors = ["NenadPantelic <nenadpantelickg@gmail.com>"]
+license = "MIT"
+
+readme = 'README.md'
+# after merge
+repository = "https://github.com/VikVelev/EmotionTracker/tree/master/movie-recommendation-api" 
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+beautifulsoup4 ="^4.8.0"
+SQLAlchemy = "^1.3.19"
+Flask = "^1.1.2"
+Flask-Cors = "^3.0.9"
+Flask-RESTful = "^0.3.8"
+Flask-SQLAlchemy = "^2.4.4"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api

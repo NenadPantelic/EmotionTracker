@@ -1,0 +1,9 @@
+{
+   "Angry":"Comedy",
+   "Disguist":"Comedy",
+   "Fear":"Family",
+   "Happy":"Adventure",
+   "Sad":"Comedy",
+   "Surprise":"Fantasy",
+   "Neutral":"Action"
+}
