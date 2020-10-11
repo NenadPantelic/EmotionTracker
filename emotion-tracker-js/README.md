@@ -32,7 +32,7 @@ let emotion = emotionTracker.poll(imageFile)
 
 ### Callbacks and State Management
 
-This npm module exports a main class `EmotionTracker` which uses javascript proxies by which the user will be notified each time the user's emotion changes.
+Our module makes use of javascript proxies thanks to which the user will be notified each time the user's emotion changes.
 Developers can easily abstract their functionality into a callback which accepts the following arguments
 
 ```javascript
@@ -41,5 +41,4 @@ function myCallback(key, value, target) {
 }
 ```
 
-The callback is invoked with the parameters of the property that is changed in the emotion state object as well as the value it is taking.
-
+The callback is invoked with the parameters of the property that is changed in the emotion state object as well as the value it is taking and the previous state value.
