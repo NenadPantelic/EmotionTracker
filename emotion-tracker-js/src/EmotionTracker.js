@@ -14,7 +14,7 @@ export default class EmotionTracker {
     constructor(callbackOnChange) {
         this.proxyHandler = {
             set: this.generateProxyHandler(callbackOnChange)
-        } 
+        }
     }
    
     generateProxyHandler = (callback) => {
@@ -39,7 +39,7 @@ export default class EmotionTracker {
         this.state.emotion = res.data.emotion;
         this.state.dominant_emotion = res.data.dominant_emotion;
         console.log(this.state);
-        
+
         return this.state;
     }
 
