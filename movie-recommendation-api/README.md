@@ -5,7 +5,7 @@ Movie recommendation API operates as a recommendation API that based on the prov
 
 ## Dataset 
 
-It internally uses IMDB dataset and recommends top IMDB movies. To setup recommendation API, IMDB dataset must be downloaded. Cleaned IMDB dataset in csv format can be found [`here`](https://drive.google.com/file/d/1Sb6UVwp6HYb7huo74Kbf-XDqQsM334rV/view?usp=sharing). To use it properly, place it into the ***data*** directory -  data/movies.csv. Dataset contains data for more than 85k IMDB movies.
+It internally uses IMDB dataset and recommends top IMDB movies. To setup recommendation API, IMDB dataset must be downloaded. Cleaned IMDB dataset in csv format can be found [`here`](https://drive.google.com/file/d/1Sb6UVwp6HYb7huo74Kbf-XDqQsM334rV/view?usp=sharing). To use it properly, place it into the ***movie-recommendation-api/data*** directory. Dataset contains data for more than 85k IMDB movies.
 
 ## Installation 
 
@@ -18,7 +18,7 @@ The easier way to install them is to let pip install all the requirements module
 pip install -r requirements.txt
 ```
 
-Another option is to use toml poetry config file to install all dependencies:
+Another option is to use poetry config file to install all dependencies:
 ```python
 poetry install
 ```
@@ -26,7 +26,7 @@ poetry install
 
 ## Usage
 
-First of all database must be created and populated. In order to do that use the following script:
+First of all database must be created and populated.
 ```python
 python3 load_db.py
 ```
@@ -39,10 +39,10 @@ Server will go live on port 8000.
 
 ## Endoints
 
-The only avaiable endpoints is the recommendation endpoint with the given URL: /api/v1/recommend
-HTTP method: POST
-Consumes: application/json
-Produces: application/json
+The only avaiable endpoint is the recommendation endpoint with the given URL: /api/v1/recommend\
+HTTP method: POST\
+Consumes: application/json\
+Produces: application/json\
 Request body:
 ```json
 {
@@ -112,5 +112,6 @@ curl --location --request POST 'localhost:8000/api/v1/recommend' --header 'Conte
     ]
 }
 ```
+
 
 
