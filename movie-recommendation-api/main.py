@@ -54,7 +54,6 @@ def recommend():
         response = make_response(jsonify(message="Request body is not valid."), 400)
         abort(response)
     output = recommender.recommend(emotion, recommendation_type, num_of_movies)
-    print(output)
     status_code = output.get("status_code", 200)
     return jsonify(output), status_code
 
