@@ -4,6 +4,7 @@
   "description": "Library for seamless integration of emotion recognition within webapps,",
   "main": "index.js",
   "dependencies": {
+    "axios": "^0.20.0",
     "npm": "^6.14.8"
   },
   "devDependencies": {},

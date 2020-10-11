@@ -1,3 +1,5 @@
-exports.track = function() {
-    console.log("Tracking emotion! stub!");
-}
+const EmotionTracker = requre("./src/EmotionTracker.js")
+
+
+
+exports.EmotionTracker = EmotionTracker
