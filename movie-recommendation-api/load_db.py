@@ -27,7 +27,7 @@ if context.isConnectionOpened:
 
     print("Tables created successfully.")
 
-    print("Load data into database.This may take some time.")
+    print("Loading data into database.This may take some time.")
     # TODO: add scraped urls directly to csv in order to get complete data details and skip
     movies = []
     last_inserted_id = 0
@@ -39,8 +39,8 @@ if context.isConnectionOpened:
             imdb_id = row["imdb_title_id"]
             # poster_url = scrape_imdb_poster(imdb_id) # TODO: permanently add poster_url in csv
             movie_attrs = [imdb_id] + [row[col] for col in row if col in CSV_MOVIE_COLUMNS] + [None]
-            print("Data loading....")
             movie_row_id = movie_repo.add_movie(movie_attrs)
+            print(f"Movie with the imdb id = [{imdb_id}] successfully inserted into database.")
             if movie_row_id is None:
                 print(f"Warning! Movie  with the imdb id =[{imdb_id}] was not inserted!")
 
