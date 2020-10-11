@@ -1,5 +1,3 @@
-const EmotionTracker = requre("./src/EmotionTracker.js")
+import EmotionTracker from './src/EmotionTracker'
 
-
-
-exports.EmotionTracker = EmotionTracker
+export default EmotionTracker

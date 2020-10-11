@@ -1,45 +1,49 @@
-const { default: Axios } = require("axios")
-const apiUrl = require("../config.js")
+import apiUrl from "../config.js"
+const axios = require('axios').default;
 
 export default class EmotionTracker {
 
-    state = {
-        "emotion" : {},
-        "dominant_emotion" : "none"
-    }
-    
-    proxyHandler = null
-    erEngineUrl = apiUrl
+    constructor(callbackOnChange, url = apiUrl) {
+        this.state = {
+            "emotion" : {},
+            "dominant_emotion" : "none"
+        }
 
-    constructor(callbackOnChange) {
+        this.generateProxyHandler = (callback) => {
+            return (target, key, value) => {
+                callback(key, value, target);
+                return true;
+            }
+        }
+
+        this.erEngineUrl = url
         this.proxyHandler = {
             set: this.generateProxyHandler(callbackOnChange)
         }
-    }
-   
-    generateProxyHandler = (callback) => {
-        return (target, key, value) => {
-            callback(key, value, target);
-            return true;
-        }
+
+        this.axiosInstance = axios.create({
+            baseURL: this.erEngineUrl,
+            timeout: 300000,
+            headers: {'X-Custom-Header': 'EmotionRecognition'}
+        });
     }
  
     track() {
-        return new Proxy(this.state, this.proxyHandler);
+        this.state = new Proxy(this.state, this.proxyHandler);
+        return this.state
     }
 
     async poll(imageFile) {
 
-        let res = await Axios.post(this.erEngineUrl, imageFile, {
+        let res = await this.axiosInstance.post("", imageFile, {
             headers: {
-                'Content-Type' : imageFile.type
+                'Content-Type' : "image"
             }
         })
-
+        
         this.state.emotion = res.data.emotion;
         this.state.dominant_emotion = res.data.dominant_emotion;
-        console.log(this.state);
-
+        
         return this.state;
     }
 

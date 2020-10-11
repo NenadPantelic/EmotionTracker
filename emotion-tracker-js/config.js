@@ -1,1 +1,1 @@
-export default "localhost:5000";
+export default "https://5179ed4af5a7.ngrok.io/predict";

@@ -1,6 +1,6 @@
 {
   "name": "emotion-tracker-js",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Library for seamless integration of emotion recognition within webapps,",
   "main": "index.js",
   "dependencies": {
