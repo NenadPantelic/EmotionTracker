@@ -16,6 +16,9 @@ class MovieRepository(IRepository):
         new_id = super().add(command, movie)
         return new_id
 
+    def findall(self):
+        return super()._findall("movie")
+
 
 
 

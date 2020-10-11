@@ -42,12 +42,12 @@ class MovieRecommendationService(RecommendationService):
     # TODO: refactor note - create controller - service - dao flow
     def find_best_movies_by_genre(self, genre, num_of_movies=5):
         # TODO: use cache
-        query = '''SELECT movie.movie_id, title, directors, actors, duration, avg_vote, poster_url, year, 
-                   production_company, genre_name FROM (SELECT * FROM movie_genre INNER JOIN genre ON genre.genre_id= 
-                   movie_genre.genre_id WHERE genre_name =:genre_name) AS MG INNER JOIN movie ON 
-                   MG.movie_id = movie.movie_id ORDER BY avg_vote DESC LIMIT :num_of_movies'''
+        query = ''"SELECT movie.movie_id, title, directors, actors, duration, description, avg_vote, poster_url, year," \
+                "production_company, genre_name FROM (SELECT * FROM movie_genre INNER JOIN genre ON " \
+                "genre.genre_id= movie_genre.genre_id WHERE genre_name = :genre) AS MG INNER JOIN movie ON " \
+                "MG.movie_id = movie.movie_id ORDER BY avg_vote DESC LIMIT :num_of_movies"''
         return  self.db_context.session.execute(query,
-                        {"genre_name": genre, "num_of_movies": num_of_movies}).fetchall()
+                        {"genre": genre, "num_of_movies": num_of_movies}).fetchall()
 
     def find_movie_url(self, movie_id):
         return scrape_imdb_poster(movie_id)
@@ -73,7 +73,10 @@ class MovieRecommendationService(RecommendationService):
                 movie_dto["poster_url"] = self.find_movie_url(movie_dto["imdb_url"])
                 movie_details.append(movie_dto)
             return {"movies":movie_details}
+        except BadParametersException as e:
+            return ErrorResponse(e.message).as_json()
         except Exception as e:
+            print(f"Some internal error ocurred. Original message -> {e}")
             # TODO: make error message more descriptive - based on exception type
             return ErrorResponse("Internal server error.").as_json()
 

@@ -10,11 +10,12 @@ class MovieResponse:
         self.directors = vargs[2]
         self.actors = vargs[3]
         self.duration = vargs[4]
-        self.score = vargs[5]
-        self.poster_url = vargs[6]
-        self.year = vargs[7]
-        self.production_company = vargs[8]
-        self.genre_name = vargs[9]
+        self.description = vargs[5]
+        self.score = vargs[6]
+        self.poster_url = vargs[7]
+        self.year = vargs[8]
+        self.production_company = vargs[9]
+        self.genre_name = vargs[10]
 
     def as_json(self):
         return self.__dict__ if self else {}
