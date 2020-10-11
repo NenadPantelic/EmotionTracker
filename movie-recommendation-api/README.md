@@ -3,11 +3,11 @@
 Movie recommendation API operates as a recommendation API that based on the provided emotion recommends movies of some genre. 
 
 
-**Dataset** 
+## Dataset 
 
 It internally uses IMDB dataset and recommends top IMDB movies. To setup recommendation API, IMDB dataset must be downloaded. Cleaned IMDB dataset in csv format can be found [`here`](https://drive.google.com/file/d/1Sb6UVwp6HYb7huo74Kbf-XDqQsM334rV/view?usp=sharing). To use it properly, place it into the ***data*** directory -  data/movies.csv. Dataset contains data for more than 85k IMDB movies.
 
-**Installation** 
+## Installation 
 
 API uses sqlite DBMS, so make sure you install it. API is developed with the Flask framework. Dependencies can be found in requirements.txt file and can be downloaded from PyPi.
 ```python
@@ -24,7 +24,7 @@ poetry install
 ```
   
 
-**Usage**
+## Usage
 
 First of all database must be created and populated. In order to do that use the following script:
 ```python
@@ -37,7 +37,7 @@ python3 main.py
 ```
 Server will go live on port 8000.
 
-**Endoints**
+## Endoints
 
 The only avaiable endpoints is the recommendation endpoint with the given URL: /api/v1/recommend
 HTTP method: POST
@@ -57,7 +57,7 @@ Request body parameters description:
 - *num_of_movies* - type := int (positive) e.g. 10
 - *recommendation_type* - type := string; possible values := {"improve", "keepup"}
 
-**Example of usage**
+## Example
 
 - Request example:
 ```curl
