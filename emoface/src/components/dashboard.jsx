@@ -69,36 +69,19 @@ function RenderSuggestedVideo(props) {
   };
   return (
     
-    // <Card
-    //   hoverable
-    //   style={{ width: 240 }}
-    //   cover={<img alt="example" src={poster_url} height= "230px"/>}
-    // >
-    //   {/* <Meta title={title} description={description} /> */}
-    //   <h2> {title}</h2>
-    //   <div style={{ paddingTop: "2rem", textAlign: "left" }}>
-    //     <p> {description}</p>
-    //     <p> Genre: {genre_name}</p>
-    //     <p> Duration: {duration}</p>
-    //     <p> Year: {year}</p>
-    //   </div>
-    // </Card>
-
     <Card
-    style={{ width: 300 }}
-    cover={
-      <img
-        alt="example"
-        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-      />
-    }
-    
-  >
-    <Meta
-      // avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-      title="Card title"
-      description="This is the description"
-    />
+      hoverable
+      style={{ width: 240 }}
+      cover={<img alt="example" src={poster_url} height= "230px"/>}
+    >
+      {/* <Meta title={title} description={description} /> */}
+      <h2> {title}</h2>
+      <div style={{ paddingTop: "2rem", textAlign: "left" }}>
+        <p> {description}</p>
+        <p> Genre: {genre_name}</p>
+        <p> Duration: {duration}</p>
+        <p> Year: {year}</p>
+      </div>
     </Card>
     
   );
@@ -116,7 +99,7 @@ export default function WebcamCapture() {
     if (key === "dominant_emotion") {
       setIsSuggestedVideos(true);
       let res = await axios.post(
-        "http://25e09e665094.ngrok.io/api/v1/recommend",
+        "fortress88.servebeer.com:8000/api/v1/recommend",
         {
           emotion: value.charAt(0).toUpperCase() + value.slice(1),
           num_of_movies: 5,
@@ -145,16 +128,17 @@ export default function WebcamCapture() {
   return (
     <>
       {!isSuggestedVideos && (
-        <div>
+        <div style={{display: "flex", flexDirection: "column", alignItems:"center"}}>
+          <h1>Place your face in the camera and capture an image!</h1>
           <Webcam
             audio={false}
-            height={720}
+            height={400}
             ref={webcamRef}
             screenshotFormat="image/jpeg"
-            width={1280}
+            width={720}
             videoConstraints={videoConstraints}
           />{" "}
-          <button onClick={capture}>Capture photo</button>
+          <button style={{marginTop:"2rem"}} onClick={capture}>Capture photo</button>
         </div>
       )}
       <div style={{ display: "flex", width: "60%", margin: "auto" }}>
