@@ -1,0 +1,115 @@
+@import '~antd/dist/antd.css';
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.welcome {
+  height: 90vh;
+  width: 30%;
+  margin: auto;
+  margin-top: 2.5%;
+  box-shadow: 0 6px 10px -6px #777;
+}
+
+.welcomeText,
+.enterText {
+  font-family: "Sacramento", cursive;
+  font-size: 3rem;
+  color: #146f83;
+}
+
+.enterText:hover {
+  cursor: pointer;
+}
+
+.message {
+  color: coral;
+  font-family: system-ui;
+  font-style: oblique;
+  font-weight: 500;
+}
+
+.illustration {
+  border-radius: 10px;
+}
+
+.illustration:hover {
+  margin: 2px;
+  cursor: pointer;
+}
+
+img {
+  /* border-radius: 7%; */
+}
+
+.dashboard {
+}
+
+.search {
+  height: 10vh;
+}
+
+.search-wrapper {
+  width: 75%;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.data {
+  width: 310px;
+  display: flex;
+  display: inline-block;
+}
+
+a {
+  color: #146f83;
+  text-decoration: none;
+}
+
+.link-wrapper {
+  width: 55%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  display: flex;
+  justify-content: space-around;
+}
+.input {
+  width: 65%;
+  height: 35px;
+  border: 1px solid #146f83;
+  border-radius: 5px;
+}
+
+.submit {
+  width: 20%;
+  height: 42px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  color: #146f83;
+  font-size: 16px;
+}
